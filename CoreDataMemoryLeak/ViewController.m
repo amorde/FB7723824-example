@@ -48,19 +48,29 @@
 {
     /// This is meant to mimic a flow that occurs in unit tests which setup and tear down fresh Core Data stacks for each run
     NSURL *url = [[NSBundle mainBundle] URLForResource:@"Model" withExtension:@".momd"];
-    for(int i = 0; i < 2000; i++) {
-        NSManagedObjectModel *model = [[NSManagedObjectModel alloc] initWithContentsOfURL:url];
-        NSPersistentStoreCoordinator *psc = [[NSPersistentStoreCoordinator alloc]
-                                             initWithManagedObjectModel:model];
-        NSPersistentStore *store = [psc addPersistentStoreWithType:NSInMemoryStoreType configuration:nil URL:nil options:nil error:nil];
+    NSLog(@"Starting test");
+    NSDate *start = [NSDate date];
+    NSDate *lastChunk = start;
+    for(int i = 0; i < 3000; i++) {
+        @autoreleasepool {
+            NSManagedObjectModel *model = [[NSManagedObjectModel alloc] initWithContentsOfURL:url];
+            NSPersistentStoreCoordinator *psc = [[NSPersistentStoreCoordinator alloc]
+                                                 initWithManagedObjectModel:model];
+            NSPersistentStore *store = [psc addPersistentStoreWithType:NSInMemoryStoreType configuration:nil URL:nil options:nil error:nil];
 
-        NSManagedObjectContext *context = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
-        context.persistentStoreCoordinator = psc;
+            NSManagedObjectContext *context = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
+            context.persistentStoreCoordinator = psc;
 
-        __unused MainEntity *obj = [NSEntityDescription insertNewObjectForEntityForName:@"MainEntity" inManagedObjectContext:context];
-        [context save:NULL];
+            __unused MainEntity *obj = [NSEntityDescription insertNewObjectForEntityForName:@"MainEntity" inManagedObjectContext:context];
+            [context save:NULL];
 
-        [psc removePersistentStore:store error:NULL];
+            [psc removePersistentStore:store error:NULL];
+        }
+        if ((i+1) % 500 == 0) {
+            NSDate *now = [NSDate date];
+            NSLog(@"iteration %d, time since start: %@, time since last chunk: %@", i+1, @([now timeIntervalSinceDate:start]), @([now timeIntervalSinceDate:lastChunk]));
+            lastChunk = now;
+        }
     }
     /// After running this, there will be thousands of `NSEntityDescription` instances
     /// as well as many generated subclasses of `NSManagedObject` for each entity,
