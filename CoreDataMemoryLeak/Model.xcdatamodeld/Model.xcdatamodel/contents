@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="16119" systemVersion="19E287" minimumToolsVersion="Automatic" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="">
+    <entity name="MainEntity" representedClassName="MainEntity" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <relationship name="relObjectFour" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="RelObjectFour" inverseName="mainObject" inverseEntity="RelObjectFour"/>
+        <relationship name="relObjectOne" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="RelObjectOne" inverseName="mainObject" inverseEntity="RelObjectOne"/>
+        <relationship name="relObjectThree" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="RelObjectThree" inverseName="mainObject" inverseEntity="RelObjectThree"/>
+        <relationship name="relObjectTwo" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="RelObjectTwo" inverseName="mainEntity" inverseEntity="RelObjectTwo"/>
+    </entity>
+    <entity name="RelObjectFour" representedClassName="RelObjectFour" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <relationship name="mainObject" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MainEntity" inverseName="relObjectFour" inverseEntity="MainEntity"/>
+    </entity>
+    <entity name="RelObjectOne" representedClassName="RelObjectOne" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <relationship name="mainObject" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MainEntity" inverseName="relObjectOne" inverseEntity="MainEntity"/>
+    </entity>
+    <entity name="RelObjectThree" representedClassName="RelObjectThree" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <relationship name="mainObject" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MainEntity" inverseName="relObjectThree" inverseEntity="MainEntity"/>
+    </entity>
+    <entity name="RelObjectTwo" representedClassName="RelObjectTwo" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <relationship name="mainEntity" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MainEntity" inverseName="relObjectTwo" inverseEntity="MainEntity"/>
+    </entity>
+    <elements>
+        <element name="MainEntity" positionX="-63" positionY="-18" width="128" height="118"/>
+        <element name="RelObjectFour" positionX="0" positionY="45" width="128" height="73"/>
+        <element name="RelObjectOne" positionX="-54" positionY="-9" width="128" height="73"/>
+        <element name="RelObjectThree" positionX="-18" positionY="27" width="128" height="73"/>
+        <element name="RelObjectTwo" positionX="-36" positionY="9" width="128" height="73"/>
+    </elements>
+</model>
